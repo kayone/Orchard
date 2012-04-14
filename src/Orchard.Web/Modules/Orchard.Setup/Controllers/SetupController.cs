@@ -56,17 +56,21 @@ namespace Orchard.Setup.Controllers {
             // views in the app folder, so that the application is more reponsive when the user
             // hits the homepage and admin screens for the first time.))
             if (StringComparer.OrdinalIgnoreCase.Equals(initialSettings.Name, ShellSettings.DefaultName)) {
-                _viewsBackgroundCompilation.Start();
+                //_viewsBackgroundCompilation.Start();
             }
 
             //
 
             return IndexViewResult(new SetupViewModel {
                 AdminUsername = "admin",
-                SiteName = "Orchard",
-                DatabaseIsPreconfigured = true,
                 Recipes = recipes,
-                RecipeDescription = recipeDescription
+                RecipeDescription = recipeDescription,
+                SiteName = "Orchard",
+                DatabaseTablePrefix = "orchard",
+                DatabaseConnectionString = ConfigurationManager.ConnectionStrings["SqlAzure"].ConnectionString,
+                DatabaseIsPreconfigured = true,
+                AdminPassword = "admin",
+                ConfirmPassword = "admin"
             });
         }
 
@@ -74,14 +78,9 @@ namespace Orchard.Setup.Controllers {
         public ActionResult IndexPOST(SetupViewModel model) {
             var recipes = OrderRecipes(_setupService.Recipes());
 
-            model.SiteName = "Orchard";
-            model.DatabaseTablePrefix = "orchard";
-            model.DatabaseConnectionString = ConfigurationManager.ConnectionStrings["SqlAzure"].ConnectionString;
-            model.DatabaseOptions = false;
-
             model.AdminPassword = "admin";
             model.ConfirmPassword = "admin";
-                
+
             //TODO: Couldn't get a custom ValidationAttribute to validate two properties
             if (!model.DatabaseOptions && string.IsNullOrEmpty(model.DatabaseConnectionString))
                 ModelState.AddModelError("DatabaseConnectionString", T("A SQL connection string is required").Text);
@@ -104,23 +103,25 @@ namespace Orchard.Setup.Controllers {
                     model.Recipe = DefaultRecipe;
                 }
             }
-            
-            //if (!ModelState.IsValid) {
-            //    model.Recipes = recipes;
-            //    foreach (var recipe in recipes.Where(recipe => recipe.Name == model.Recipe)) {
-            //        model.RecipeDescription = recipe.Description;
-            //    }
-            //    model.DatabaseIsPreconfigured = !string.IsNullOrEmpty(_setupService.Prime().DataProvider);
-                
-            //    return IndexViewResult(model);
-            //}
+
+            if (!ModelState.IsValid)
+            {
+                model.Recipes = recipes;
+                foreach (var recipe in recipes.Where(recipe => recipe.Name == model.Recipe))
+                {
+                    model.RecipeDescription = recipe.Description;
+                }
+                model.DatabaseIsPreconfigured = !string.IsNullOrEmpty(_setupService.Prime().DataProvider);
+
+                //return IndexViewResult(model);
+            }
 
             try {
                 var setupContext = new SetupContext {
                     SiteName = model.SiteName,
                     AdminUsername = model.AdminUsername,
                     AdminPassword = model.AdminPassword,
-                    DatabaseProvider = model.DatabaseOptions ? "SqlCe" : "SqlServer",
+                    DatabaseProvider = "SqlServer",
                     DatabaseConnectionString = model.DatabaseConnectionString,
                     DatabaseTablePrefix = model.DatabaseTablePrefix,
                     EnabledFeatures = null, // default list
@@ -132,7 +133,7 @@ namespace Orchard.Setup.Controllers {
                 // First time installation if finally done. Tell the background views compilation
                 // process to stop, so that it doesn't interfere with the user (asp.net compilation
                 // uses a "single lock" mechanism for compiling views).
-                _viewsBackgroundCompilation.Stop();
+                //_viewsBackgroundCompilation.Stop();
 
                 // redirect to the welcome page.
                 return Redirect("~/");

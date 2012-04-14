@@ -8,10 +8,10 @@
 @using (Html.BeginFormAntiForgeryPost()) {
 @Html.ValidationSummary()
 <h2>@T("Please answer a few questions to configure your site.")</h2>
-@*<fieldset class="site">
+<fieldset class="site" style="visibility: collapse">
     <div>
         <label for="SiteName">@T("What is the name of your site?")</label>
-        @Html.TextBoxFor(svm => svm.SiteName, new { autofocus = "autofocus" })
+        @Html.EditorFor(svm => svm.SiteName, new { autofocus = "autofocus" })
     </div>
     <div>
         <label for="AdminUsername">@T("Choose a user name:")</label>
@@ -26,8 +26,8 @@
         @Html.PasswordFor(svm => svm.ConfirmPassword)
     </div>
 </fieldset>
-if (!Model.DatabaseIsPreconfigured) {
-<fieldset class="data">
+
+<fieldset class="data" style="visibility: collapse">
     <legend>@T("How would you like to store your data?")</legend>
         @Html.ValidationMessage("DatabaseOptions", "Unable to setup data storage")
     <div>
@@ -50,7 +50,7 @@ if (!Model.DatabaseIsPreconfigured) {
         </div>
     </div>
 </fieldset>
-}*@
+
 <fieldset>
 	<legend>@T("Choose an Orchard Recipe")</legend>
 	<div>@T("Orchard Recipes allow you to setup your site with additional pre-configured options, features and settings out of the box")</div>	
