@@ -3,7 +3,7 @@
 CALL package.cmd
 
 SET ROLENAME=Orchard.Azure.Web
-SET APPROOT=_rawPackage
+SET APPROOT=_orchard
 SET APPNAME=OrchardRaw
 
 

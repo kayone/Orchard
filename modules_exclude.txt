@@ -1,0 +1,11 @@
+.csproj
+Orchard.Core.
+Orchard.Framework.
+NHibernate
+log4net
+Autofac
+Castle.
+Iesi.Collections.
+ClaySharp.
+\obj\
+\bin\
