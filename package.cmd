@@ -14,5 +14,3 @@ xcopy src\Orchard.Azure\Orchard.Azure.Web\*.*  %TARGET%\ /E /V /I /Y /F /EXCLUDE
 xcopy src\Orchard.Web\Modules\*.*  %TARGET%\Modules\ /E /V /I /Y /F
 xcopy src\Orchard.Web\Core\*.*  %TARGET%\Core\ /E /V /I /Y /F
 xcopy src\Orchard.Web\Themes\*.*  %TARGET%\Themes\ /E /V /I /Y /F
-
-pause

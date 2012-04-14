@@ -74,6 +74,7 @@ namespace Orchard.Setup.Controllers {
         public ActionResult IndexPOST(SetupViewModel model) {
             var recipes = OrderRecipes(_setupService.Recipes());
 
+            model.SiteName = "Orchard";
             model.DatabaseTablePrefix = "orchard";
             model.DatabaseConnectionString = ConfigurationManager.ConnectionStrings["SqlAzure"].ConnectionString;
             model.DatabaseOptions = false;
@@ -103,15 +104,16 @@ namespace Orchard.Setup.Controllers {
                     model.Recipe = DefaultRecipe;
                 }
             }
-            if (!ModelState.IsValid) {
-                model.Recipes = recipes;
-                foreach (var recipe in recipes.Where(recipe => recipe.Name == model.Recipe)) {
-                    model.RecipeDescription = recipe.Description;
-                }
-                model.DatabaseIsPreconfigured = !string.IsNullOrEmpty(_setupService.Prime().DataProvider);
+            
+            //if (!ModelState.IsValid) {
+            //    model.Recipes = recipes;
+            //    foreach (var recipe in recipes.Where(recipe => recipe.Name == model.Recipe)) {
+            //        model.RecipeDescription = recipe.Description;
+            //    }
+            //    model.DatabaseIsPreconfigured = !string.IsNullOrEmpty(_setupService.Prime().DataProvider);
                 
-                return IndexViewResult(model);
-            }
+            //    return IndexViewResult(model);
+            //}
 
             try {
                 var setupContext = new SetupContext {

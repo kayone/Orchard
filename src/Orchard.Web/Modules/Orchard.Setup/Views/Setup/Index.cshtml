@@ -25,7 +25,7 @@
         <label for="ConfirmAdminPassword">@T("Confirm the password:")</label>
         @Html.PasswordFor(svm => svm.ConfirmPassword)
     </div>
-</fieldset>*@
+</fieldset>
 if (!Model.DatabaseIsPreconfigured) {
 <fieldset class="data">
     <legend>@T("How would you like to store your data?")</legend>
@@ -50,7 +50,7 @@ if (!Model.DatabaseIsPreconfigured) {
         </div>
     </div>
 </fieldset>
-}
+}*@
 <fieldset>
 	<legend>@T("Choose an Orchard Recipe")</legend>
 	<div>@T("Orchard Recipes allow you to setup your site with additional pre-configured options, features and settings out of the box")</div>	
@@ -76,6 +76,6 @@ if (!Model.DatabaseIsPreconfigured) {
 </div>
     
 <fieldset>
-    <button class="primaryAction setupButton" type="submit">@T("Finish Setup")</button>
+    <button class="primaryAction setupButton" type="submit">@T("Setup Orchard")</button>
 </fieldset>
 }
