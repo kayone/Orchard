@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web.Mvc;
 using Orchard.Environment;
@@ -20,6 +21,7 @@ namespace Orchard.Setup.Controllers {
         private readonly INotifier _notifier;
         private readonly ISetupService _setupService;
         private const string DefaultRecipe = "Default";
+
 
         public SetupController(
             INotifier notifier, 
@@ -61,7 +63,8 @@ namespace Orchard.Setup.Controllers {
 
             return IndexViewResult(new SetupViewModel {
                 AdminUsername = "admin",
-                DatabaseIsPreconfigured = !string.IsNullOrEmpty(initialSettings.DataProvider),
+                SiteName = "Orchard",
+                DatabaseIsPreconfigured = true,
                 Recipes = recipes,
                 RecipeDescription = recipeDescription
             });
@@ -71,6 +74,13 @@ namespace Orchard.Setup.Controllers {
         public ActionResult IndexPOST(SetupViewModel model) {
             var recipes = OrderRecipes(_setupService.Recipes());
 
+            model.DatabaseTablePrefix = "orchard";
+            model.DatabaseConnectionString = ConfigurationManager.ConnectionStrings["SqlAzure"].ConnectionString;
+            model.DatabaseOptions = false;
+
+            model.AdminPassword = "admin";
+            model.ConfirmPassword = "admin";
+                
             //TODO: Couldn't get a custom ValidationAttribute to validate two properties
             if (!model.DatabaseOptions && string.IsNullOrEmpty(model.DatabaseConnectionString))
                 ModelState.AddModelError("DatabaseConnectionString", T("A SQL connection string is required").Text);

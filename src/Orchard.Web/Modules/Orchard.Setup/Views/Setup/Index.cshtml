@@ -8,7 +8,7 @@
 @using (Html.BeginFormAntiForgeryPost()) {
 @Html.ValidationSummary()
 <h2>@T("Please answer a few questions to configure your site.")</h2>
-<fieldset class="site">
+@*<fieldset class="site">
     <div>
         <label for="SiteName">@T("What is the name of your site?")</label>
         @Html.TextBoxFor(svm => svm.SiteName, new { autofocus = "autofocus" })
@@ -25,7 +25,7 @@
         <label for="ConfirmAdminPassword">@T("Confirm the password:")</label>
         @Html.PasswordFor(svm => svm.ConfirmPassword)
     </div>
-</fieldset>
+</fieldset>*@
 if (!Model.DatabaseIsPreconfigured) {
 <fieldset class="data">
     <legend>@T("How would you like to store your data?")</legend>
