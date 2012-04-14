@@ -67,7 +67,7 @@ namespace Orchard.Setup.Controllers {
                 RecipeDescription = recipeDescription,
                 SiteName = "Orchard",
                 DatabaseTablePrefix = "orchard",
-                DatabaseConnectionString = ConfigurationManager.ConnectionStrings["SqlAzure"].ConnectionString,
+                DatabaseConnectionString = ConfigurationManager.ConnectionStrings["SqlAzureConnection"].ConnectionString,
                 DatabaseIsPreconfigured = true,
                 AdminPassword = "admin",
                 ConfirmPassword = "admin"

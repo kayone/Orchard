@@ -1,14 +1,46 @@
 ﻿@model Orchard.Setup.ViewModels.SetupViewModel
 @{
-	Script.Require("jQuery");
+    Script.Require("jQuery");
     Script.Include("setup.js");
 }
 <h1>@Html.TitleForPage(T("Get Started").ToString())</h1>
 
-@using (Html.BeginFormAntiForgeryPost()) {
+@using (Html.BeginFormAntiForgeryPost())
+{
 @Html.ValidationSummary()
 <h2>@T("Please answer a few questions to configure your site.")</h2>
-<fieldset class="site" style="visibility: collapse">
+
+
+<fieldset>
+	<legend>@T("Choose an Orchard Recipe")</legend>
+	<div>@T("Orchard Recipes allow you to setup your site with additional pre-configured options, features and settings out of the box")</div>	
+	<div>
+        <select id="@Html.FieldIdFor(m => m.Recipe)" name="@Html.FieldNameFor(m => m.Recipe)" class="recipe">
+        @foreach (var recipe in Model.Recipes)
+        {
+            @Html.SelectOption(Model.Recipe, recipe.Name, recipe.Name, new { recipedescription = recipe.Description })
+        }
+        </select>
+    </div>
+	<div id="recipedescription">@Model.RecipeDescription</div>
+</fieldset>
+<div id="throbber">
+    <div class="curtain"></div>
+    <div class="curtain-content">
+        <div>
+            <h1 id="setUpHeader">@T("Cooking Orchard Recipe ...")</h1>
+            <p>
+                <img src="@Href("../../content/synchronizing.gif")" alt="" />
+            </p>
+        </div>
+    </div>
+</div>
+    
+    <fieldset>
+        <button class="primaryAction setupButton" type="submit">@T("Setup Orchard")</button>
+    </fieldset>
+    
+    <fieldset class="site" style="visibility: collapse">
     <div>
         <label for="SiteName">@T("What is the name of your site?")</label>
         @Html.EditorFor(svm => svm.SiteName, new { autofocus = "autofocus" })
@@ -49,33 +81,5 @@
             @Html.EditorFor(svm => svm.DatabaseTablePrefix)
         </div>
     </div>
-</fieldset>
-
-<fieldset>
-	<legend>@T("Choose an Orchard Recipe")</legend>
-	<div>@T("Orchard Recipes allow you to setup your site with additional pre-configured options, features and settings out of the box")</div>	
-	<div>
-        <select id="@Html.FieldIdFor(m => m.Recipe)" name="@Html.FieldNameFor(m => m.Recipe)" class="recipe">
-        @foreach(var recipe in Model.Recipes) {
-            @Html.SelectOption(Model.Recipe, recipe.Name, recipe.Name, new { recipedescription = recipe.Description })
-        }
-        </select>
-    </div>
-	<div id="recipedescription">@Model.RecipeDescription</div>
-</fieldset>
-<div id="throbber">
-    <div class="curtain"></div>
-    <div class="curtain-content">
-        <div>
-            <h1 id="setUpHeader">@T("Cooking Orchard Recipe ...")</h1>
-            <p>
-                <img src="@Href("../../content/synchronizing.gif")" alt="" />
-            </p>
-        </div>
-    </div>
-</div>
-    
-<fieldset>
-    <button class="primaryAction setupButton" type="submit">@T("Setup Orchard")</button>
 </fieldset>
 }
