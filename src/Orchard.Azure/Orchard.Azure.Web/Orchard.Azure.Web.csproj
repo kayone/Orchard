@@ -352,10 +352,6 @@
       <Name>Orchard.Tags</Name>
       <Private>True</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\Orchard.Web\Modules\Orchard.TaskLease\Orchard.TaskLease.csproj">
-      <Project>{3F72A4E9-7B72-4260-B010-C16EC54F9BAF}</Project>
-      <Name>Orchard.TaskLease</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Orchard.Web\Modules\Orchard.Themes\Orchard.Themes.csproj">
       <Project>{CDE24A24-01D3-403C-84B9-37722E18DFB7}</Project>
       <Name>Orchard.Themes</Name>
