@@ -36,3 +36,5 @@ src/Orchard.Azure/Orchard.Azure.Web/Core/
 src/Orchard.Azure/Orchard.Azure.Web/Modules/
 src/Orchard.Azure/Orchard.Azure.Web/Themes/
 src/Orchard.Azure/Orchard.Azure.CloudService/ServiceDefinition.build.csdef
+_rawPackage/
+*.csx/*

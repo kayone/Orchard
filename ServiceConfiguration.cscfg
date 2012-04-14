@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<ServiceConfiguration serviceName="OrchardCloudService" osFamily="2" osVersion="*" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceConfiguration">
+  <Role name="Orchard.Azure.Web">
+    <Instances count="1" />
+    <ConfigurationSettings>
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.Enabled" value="true" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountUsername" value="kay.one" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountEncryptedPassword" value="MIIBnQYJKoZIhvcNAQcDoIIBjjCCAYoCAQAxggFOMIIBSgIBADAyMB4xHDAaBgNVBAMME1dpbmRvd3MgQXp1cmUgVG9vbHMCEBLfDIQMr3qhSc71bZtfniswDQYJKoZIhvcNAQEBBQAEggEAI3EXO0HHT9tG2lC45j3MmWdORYPyyKl+vcxpuEiaUIzKYDwTQuCnVkLOrCcuLF3fbLifZ8eWAlXWIheqZgYIVmm9JOvu0XGjXI/TS/t5D8oXEg5eOckK6n+OF4hVb8kXQtIhz25/ryKIpYU/OKmxHRSyASfzYUDy9GpnpYOcu/5xoqcPhE262yKHv1PxE/ujEpYR9jwl+Xb/yQocyDwo9EmPCyu7NL7MN6EdBEWkMC4b1SXWb/ucgQsiNLSrHHDaaRVBo+MkaPDJNK0XexbdirFj9EN2NbEbvXKIo+uRqHpYHYI5YwotomBg19JmPdC9ieFZ6f74fwiTIsVIDVQ0RjAzBgkqhkiG9w0BBwEwFAYIKoZIhvcNAwcECDEUwp0Q7w0dgBBK5nLx6+t5+L5Dd2vQOBXg" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountExpiration" value="2013-03-25T23:59:59.0000000-07:00" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteForwarder.Enabled" value="true" />
+	  <Setting name="DataConnectionString" value="UseDevelopmentStorage=true" />
+    </ConfigurationSettings>
+    <Certificates>
+      <Certificate name="Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" thumbprint="8E2E5AB368A106DE36210A9E00C9369766ACFEE8" thumbprintAlgorithm="sha1" />
+    </Certificates>
+  </Role>
+</ServiceConfiguration>
