@@ -76,6 +76,8 @@ namespace Orchard.Setup.Controllers {
 
         [HttpPost, ActionName("Index")]
         public ActionResult IndexPOST(SetupViewModel model) {
+
+            HttpContext.Server.ScriptTimeout = 600;
             var recipes = OrderRecipes(_setupService.Recipes());
 
             model.AdminPassword = "admin";
