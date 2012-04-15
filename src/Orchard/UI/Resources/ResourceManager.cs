@@ -8,7 +8,10 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Autofac.Features.Metadata;
+using Orchard.Environment;
 using Orchard.Environment.Extensions.Models;
+using Orchard.Mvc;
+using Orchard.Settings;
 
 namespace Orchard.UI.Resources {
     public class ResourceManager : IResourceManager, IUnitOfWorkDependency {
@@ -23,6 +26,7 @@ namespace Orchard.UI.Resources {
         private List<String> _headScripts;
         private List<String> _footScripts;
         private IEnumerable<IResourceManifest> _manifests;
+        private static bool _resourceDebug;
 
         private const string NotIE = "!IE";
 
@@ -59,6 +63,10 @@ namespace Orchard.UI.Resources {
         }
 
         public static void WriteResource(TextWriter writer, ResourceDefinition resource, string url, string condition, Dictionary<string, string> attributes) {
+           
+            if (_resourceDebug) {
+                url += ("?" + DateTime.Now.Ticks);
+            }
             if (!string.IsNullOrEmpty(condition)) {
                 if (condition == NotIE) {
                     writer.WriteLine("<!--[if " + condition + "]>-->");
@@ -87,8 +95,10 @@ namespace Orchard.UI.Resources {
             }
         }
 
-        public ResourceManager(IEnumerable<Meta<IResourceManifestProvider>> resourceProviders) {
+        public ResourceManager(IEnumerable<Meta<IResourceManifestProvider>> resourceProviders, Work<IHttpContextAccessor> httpContextAccessor)
+        {
             _providers = resourceProviders;
+            _resourceDebug = httpContextAccessor.Value.Current().IsDebuggingEnabled;
         }
 
         public IEnumerable<IResourceManifest> ResourceProviders {
