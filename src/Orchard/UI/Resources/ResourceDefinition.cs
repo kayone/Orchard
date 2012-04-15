@@ -180,6 +180,8 @@ namespace Orchard.UI.Resources {
                 url = settings.CdnMode
                     ? Coalesce(UrlCdnDebug, UrlDebug, UrlCdn, Url)
                     : Coalesce(UrlDebug, Url, UrlCdnDebug, UrlCdn);
+
+                url += ("?" + DateTime.Now.Ticks.ToString());
             }
             else {
                 url = settings.CdnMode
